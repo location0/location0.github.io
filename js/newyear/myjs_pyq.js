@@ -3,7 +3,7 @@ let textTimeNow = "";
 let textNow = "";
 let theText = "春节即将到来🎉，提前祝你新年快乐🎊，祝你幸福无限🌈\n\
 愿你事业有成💼，家庭幸福👨‍👩‍👧‍👦，健康快乐🏃‍♂️，梦想成真🎉\n\
-转发给10个最好的朋友💬，新年愿望都能实现哦💌";//祝福语
+转发到朋友圈并@10个朋友💬，让他们陪你一起过除夕夜吧💌";//祝福语
 let theTargetTime = "2023/1/22 00:00:00";//目标时间
 let isVisible = 1;//默认显示文字和打赏
 
@@ -75,8 +75,7 @@ function countDown(time)
         let deltaSecond = isUnder10(parseInt(deltaTime/1000%60));
         theText = "新年的钟声敲响🔔，祝福的音符传递🎵。\n\
         在这个美好的时刻里🌟，祝愿你事业有成💼，家庭幸福👨‍👩‍👧‍👦，健康快乐🏃‍♂️，梦想成真🎉。\n\
-        新年快乐🎊！祝福你新年无限精彩🌈。\n\
-        转发给10个最好的朋友💬，新年愿望都能实现哦💌";
+        新年快乐🎊！祝福你新年无限精彩🌈。";
         return ["已经",String(deltaDay),String(deltaHour),String(deltaMinute),String(deltaSecond)];
     }
 }
