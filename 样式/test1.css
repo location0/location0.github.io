@@ -1,0 +1,41 @@
+@font-face {
+    font-family: "手写";
+    src: url(../字体/LHANDW.TTF);
+}/*仅个人使用，无商业目的，侵删*/
+body{background-color: rgb(100,200,227);}
+h1{
+    text-align: center;
+    color: black;
+    font-size: 25px;
+    font-family: "手写";
+}
+
+.center{
+    margin: auto;
+    text-align: center;
+    padding-top: 5px;
+    
+}
+.first{
+    font-size: 20px;
+}
+.first img{
+    width: 250px;
+    padding-top: 20px;
+}
+
+.second{
+    font-size: 15px;
+}
+.second img{
+    width: 130px;
+    padding-top: 20px;
+}
+
+
+.left{
+    margin: auto;
+    text-align: left;
+    font-size: 25px;
+    padding-top: 5px;
+}
