@@ -23,7 +23,7 @@ function refreshFont(){
         pOfText.setAttribute("style","font-size:3vw");
     }
     else{
-        pOfTime.setAttribute("style","font-size:21px");
+        pOfTime.setAttribute("style","font-size:23px");
         pOfText.setAttribute("style","font-size:17px");
     }
 }
