@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="样式/倒计时2.css">
+    <link rel="icon" type="image/x-icon" href="img/图标_1.13_2.ico">
+    <title>倒计时2</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>内容</th>
+                <th>状态</th>
+                <th>时间</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>欢迎您使用倒计时！</td>
+                <td>加载中……</td>
+                <td>请稍后</td>
+            </tr>
+        </tbody>
+    </table>
+    <div id="buttons">
+        <button id="new">
+            +新建
+        </button>
+        <button id="settings">
+            ⚙️设置
+        </button>
+    </div>
+    <div id="timeChooser">
+        <span id="closeTimeChooser">&times;</span>
+        <label id="chooserLabel">请输入时间（滚动鼠标或滑动屏幕可快速调节）<br>
+            <input id="year">年
+            <input id="month">月
+            <input id="day">日
+            <input id="hour">时
+            <input id="minute">分
+            <input id="second">秒
+        </label>
+    </div>
+    <script src="js/myFuncs.js"></script>
+    <script src="js/倒计时2.js"></script>
+</body>
+</html>

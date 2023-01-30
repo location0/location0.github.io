@@ -1,0 +1,138 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    background-color: rgb(250, 250, 248);
+}
+
+table{
+    margin:auto;
+    margin-top: 15px;
+}
+th{
+    text-align: center;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 30px;
+}
+tr{
+    background-color: rgba(135,206,250, 0.25);
+}
+td{
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 25px;
+}
+
+
+
+
+
+
+
+
+#buttons{
+    text-align: center;
+    padding-top: 10px;
+    user-select: none;
+}
+
+/*新建按钮*/
+#new{
+    text-align: center;
+    margin:10px;
+    margin-right: 50px;
+    width: 90px;
+    height: 45px;
+    font-size: 20px;
+    color: rgb(245, 245, 242);
+    border-radius: 25px;
+    border-color:transparent;
+    background:linear-gradient(90deg,rgb(128, 137, 241),rgb(175, 80, 157));
+    background-size: 110%;
+    background-position: -5px;
+}
+#new:hover{
+    background:linear-gradient(90deg,rgb(128, 137, 241),rgb(175, 80, 157));
+    background-size: 110%;
+    background-position: -5px;
+}
+#new:active{
+    background:linear-gradient(90deg,rgb(119, 128, 222),rgb(160, 74, 144));
+    background-size: 110%;
+    background-position: -5px;
+
+}
+
+/*关闭新建*/
+#closeTimeChooser{
+    user-select: none;
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+/*输入时间*/
+#chooserLabel{
+    display: inline-block;
+    margin-top: 25vh;
+    background-color: white;
+    width: 400px;
+}
+
+/*输入框*/
+input{
+    width: 30px;
+    text-align: center;
+    font-size: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#year{
+    width: 50px;
+}
+#hour{
+    margin-left: 20px;
+}
+
+
+
+
+/*设置按钮*/
+#settings{
+    text-align: center;
+    margin:10px;
+    margin-right: 50px;
+    width: 110px;
+    height: 45px;
+    font-size: 20px;
+    color: rgb(29, 95, 238);
+    border-radius: 25px;
+    background-color: rgb(235, 235, 232);
+    border-color:transparent;
+}
+#settings:hover{
+    background-color: rgb(235, 235, 232);
+}
+#settings:active{
+    background-color: rgb(220, 220, 218);
+}
+
+#timeChooser{
+    position: fixed;
+    top: 0;
+    text-align: center;
+    display: none;
+    background-color: rgba(0,0,0,0.5);
+    width: 100%;
+    height: 100%;
+}
