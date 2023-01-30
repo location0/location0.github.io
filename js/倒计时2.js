@@ -101,36 +101,6 @@ mouseWheelChoosingTime(inputsArr[4],"setMinutes");
 mouseWheelChoosingTime(inputsArr[5],"setSeconds");
 
 
-//年和月的规则总是让人捉摸不透
-//年
-// inputsArr[0].onmousewheel = function (event){
-//     let tempTime = new Date(targetTimeStamp)
-//     if (event.wheelDelta > 0){
-//         tempTime.setFullYear(tempTime.getFullYear()+1);
-//         targetTimeStamp = +new Date(tempTime);
-//         console.log(targetTimeStamp);
-//     }
-//     else {
-//         tempTime.setFullYear(tempTime.getFullYear()-1);
-//         targetTimeStamp = +new Date(tempTime);
-//     }
-//     refreshInputValues(targetTimeStamp);
-// }
-// //火狐
-// inputsArr[0].addEventListener('DOMMouseScroll', (event) => {
-//     if (event.detail > 0) {
-//         tempTime.setFullYear(tempTime.getFullYear+1);
-//         targetTimeStamp = +new Date(tempTime);
-//     }
-//     else {
-//         tempTime.setFullYear(tempTime.getFullYear-1);
-//         targetTimeStamp = +new Date(tempTime);
-//     }
-//     refreshInputValues(targetTimeStamp);
-// }, false);
-
-
-
 //将input默认值设为当前时间
 function refreshInputValues(_Time){
     inputsArr[0].value = _Time.getFullYear();
