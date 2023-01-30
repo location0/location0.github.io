@@ -1,8 +1,11 @@
-let testArray = [[],
-    ["吃饭","2023/11/11",0],
-    ["6","2023/1/29 16:30",1]
-];
+//获取用户数据
+// localStorage.removeItem("uArr");
+let usersArr = JSON.parse(localStorage.getItem("uArr"));
 let openTime = new Date();
+if(usersArr==null){
+    usersArr = [[],["访问本网站",openTime]];
+}
+
 let timesArr = ["year","month","day","hour","minute","second"];
 let targetTime;
 
@@ -11,6 +14,9 @@ let theTable = document.querySelector("tbody");
 let chooserDiv = document.getElementById("timeChooser");
 let newBtn = document.getElementById("new");
 let closeTimeChooserSpan = document.getElementById("closeTimeChooser");
+let doneBtn = document.getElementById("done");
+let commitBtn = document.getElementById("commit");
+let titleInput = document.getElementById("title");
 
 //循环获取所有输入框
 let inputsArr = [];
@@ -32,6 +38,9 @@ newBtn.addEventListener("click",function(){
 closeTimeChooserSpan.addEventListener("click",function(){
     chooserDiv.style.display = "none";
 })
+doneBtn.addEventListener("click",function(){
+    chooserDiv.style.display = "none";
+})
 
 //点击屏幕窗口消失
 window.addEventListener("click",function(event){
@@ -46,6 +55,9 @@ for(a=0;a<inputsArr.length;a++){
         this.select();
     })
 }
+titleInput.addEventListener("focus",function(){
+    titleInput.select();
+})
 
 //注册监听鼠标滚动函数
 function mouseWheelChoosingTime(element,setmethod){
@@ -101,7 +113,37 @@ mouseWheelChoosingTime(inputsArr[4],"setMinutes");
 mouseWheelChoosingTime(inputsArr[5],"setSeconds");
 
 
-//将input默认值设为当前时间
+//检验年份输入合法性
+inputsArr[0].addEventListener("input", function() {
+this.value = this.value.replace(/[^\d]/g, "");
+});
+
+//添加上下限
+function varify(element,min,max){
+    element.addEventListener("input", function() {
+        element.value = element.value.replace(/[^\d]/g, "");
+        if (element.value > max || element.value < min) {
+            element.value = element.value.slice(0, -1);
+    }
+    });
+}
+varify(inputsArr[1],1,12);
+varify(inputsArr[2],1,31);
+varify(inputsArr[3],0,24);
+varify(inputsArr[4],0,60);
+varify(inputsArr[5],0,60);
+
+//提交
+commitBtn.addEventListener("click",function(){
+    targetTimeString = String(inputsArr[0].value)+"/"+String(inputsArr[1].value)+"/"+String(inputsArr[2].value)+" "+String(inputsArr[3].value)+":"+String(inputsArr[4].value+":")+String(inputsArr[5].value);
+    usersArr.push([titleInput.value,targetTimeString]);
+    localStorage.setItem("uArr",JSON.stringify(usersArr));
+})
+
+
+
+
+//将input值设为传入时间
 function refreshInputValues(_Time){
     inputsArr[0].value = _Time.getFullYear();
     inputsArr[1].value = _Time.getMonth()+1;
@@ -110,8 +152,6 @@ function refreshInputValues(_Time){
     inputsArr[4].value = _Time.getMinutes();
     inputsArr[5].value = _Time.getSeconds();
 }
-
-
 
 
 
@@ -173,19 +213,7 @@ function writeHTMLOfTbody(arr){
 function showTable(){
     theTable.innerHTML = writeHTMLOfTbody(toDisplayArray(usersArr));
 }
-//默认表格
-function defaultTable(){
-    theTable.innerHTML = writeHTMLOfTbody(toDisplayArray([[],["访问本网站",openTime]]));
-}
-
-localStorage.setItem("uArr",JSON.stringify(testArray));
-localStorage.removeItem("uArr");
 
 
-let usersArr = JSON.parse(localStorage.getItem("uArr"));
-if(usersArr!=null){
-    setInterval(showTable,300);
-}
-else{
-    setInterval(defaultTable,300);
-}
+
+setInterval(showTable,300);

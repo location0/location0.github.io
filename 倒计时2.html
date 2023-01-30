@@ -14,7 +14,7 @@
     <table>
         <thead>
             <tr>
-                <th>内容</th>
+                <th>标题</th>
                 <th>状态</th>
                 <th>时间</th>
             </tr>
@@ -37,13 +37,16 @@
     </div>
     <div id="timeChooser">
         <span id="closeTimeChooser">&times;</span>
-        <label id="chooserLabel">请输入时间（滚动鼠标或滑动屏幕可快速调节）<br>
+        <label id="chooserLabel">请输入时间（滚动鼠标可快速调节）<br>
+            标题<input id="title" value="未命名"><br>
             <input id="year">年
             <input id="month">月
             <input id="day">日
             <input id="hour">时
             <input id="minute">分
-            <input id="second">秒
+            <input id="second">秒<br>
+            <button id="commit">提交</button>
+            <button id="done">完成</button>
         </label>
     </div>
     <script src="js/myFuncs.js"></script>
