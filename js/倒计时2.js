@@ -6,22 +6,32 @@ if(usersArr==null){
     usersArr = [[],["访问本网站",openTime]];
 }
 
+
 let timesArr = ["year","month","day","hour","minute","second"];
 let targetTime;
 
 //--获取元素--
-let theTable = document.querySelector("tbody");
-let chooserDiv = document.getElementById("timeChooser");
-let newBtn = document.getElementById("new");
-let closeTimeChooserSpan = document.getElementById("closeTimeChooser");
-let doneBtn = document.getElementById("done");
-let commitBtn = document.getElementById("commit");
-let titleInput = document.getElementById("title");
+function getEles(eleName){
+    return document.getElementById(eleName);
+}
+let theTable = document.querySelector("tbody");//表格
+let chooserDiv = getEles("timeChooser");//时间选择器背景
+let newBtn = getEles("new");//新建按钮
+let closeChooserBtn = getEles("closeChooser");//时间选择器关闭按钮
+let commitBtn = getEles("commit");//提交按钮
+let titleInput = getEles("title");//标题输入框
+let settingsBtn = getEles("settings");//设置按钮
+let settingsDiv = getEles("settingsDiv");//设置页面背景
+let clearBtn = getEles("clearBtn");//清空数据
+let clearDiv = getEles("clearDiv");//清空数据背景
+let dataSizeSpan = getEles("dataSize");//获取填写数据大小的span
+let confirmClearBtn = getEles("confirmClear");//确认清空缓存
+let cancelClearBtn = getEles("cancelClear");//取消清空
 
 //循环获取所有输入框
 let inputsArr = [];
 for(a=0;a<timesArr.length;a++){
-    inputsArr[a] = document.getElementById(timesArr[a]);
+    inputsArr[a] = getEles(timesArr[a]);
 }
 
 //--添加事件监听--
@@ -32,22 +42,31 @@ newBtn.addEventListener("click",function(){
     targetTime = new Date();
     refreshInputValues(targetTime);
 })
-
-
 //关闭新增时间
-closeTimeChooserSpan.addEventListener("click",function(){
+closeChooserBtn.addEventListener("click",function(){
     chooserDiv.style.display = "none";
 })
-doneBtn.addEventListener("click",function(){
-    chooserDiv.style.display = "none";
-})
-
 //点击屏幕窗口消失
 window.addEventListener("click",function(event){
     if(event.target==chooserDiv){
         chooserDiv.style.display = "none";
     }
 })
+
+//设置部分
+//点击设置按钮
+settingsBtn.addEventListener("click",function(){
+    settingsDiv.style.display = "flex";
+})
+//
+
+//点击屏幕其他位置
+window.addEventListener("click",function(event){
+    if(event.target==settingsDiv){
+        settingsDiv.style.display = "none";
+    }
+})
+
 
 //选中input自动全选
 for(a=0;a<inputsArr.length;a++){
@@ -133,12 +152,44 @@ varify(inputsArr[3],0,24);
 varify(inputsArr[4],0,60);
 varify(inputsArr[5],0,60);
 
+//检测标题
+titleInput.addEventListener("input",function(){
+    while(titleInput.value.length>11){
+        titleInput.value = titleInput.value.slice(0,-1);
+    }
+})
+
 //提交
 commitBtn.addEventListener("click",function(){
     targetTimeString = String(inputsArr[0].value)+"/"+String(inputsArr[1].value)+"/"+String(inputsArr[2].value)+" "+String(inputsArr[3].value)+":"+String(inputsArr[4].value+":")+String(inputsArr[5].value);
     usersArr.push([titleInput.value,targetTimeString]);
     localStorage.setItem("uArr",JSON.stringify(usersArr));
 })
+
+
+
+//--设置窗口--
+//清空
+clearBtn.addEventListener("click",function(){
+    clearDiv.style.display="block";
+    dataSizeSpan.innerText = ((new Blob(usersArr)).size/1024).toFixed(2);
+
+})
+confirmClearBtn.addEventListener("click",function(){
+    clearDiv.style.display = "none";
+    localStorage.removeItem("uArr");
+})
+cancelClearBtn.addEventListener("click",function(){
+    clearDiv.style.display = "none";
+})
+
+window.addEventListener("click",function(event){
+    if(event.target==clearDiv){
+        clearDiv.style.display = "none";
+    }
+})
+
+
 
 
 
@@ -152,8 +203,6 @@ function refreshInputValues(_Time){
     inputsArr[4].value = _Time.getMinutes();
     inputsArr[5].value = _Time.getSeconds();
 }
-
-
 
 
 //转为输出数组
@@ -213,7 +262,5 @@ function writeHTMLOfTbody(arr){
 function showTable(){
     theTable.innerHTML = writeHTMLOfTbody(toDisplayArray(usersArr));
 }
-
-
 
 setInterval(showTable,300);

@@ -35,19 +35,25 @@
             ⚙️设置
         </button>
     </div>
-    <div id="timeChooser">
-        <span id="closeTimeChooser">&times;</span>
-        <label id="chooserLabel">请输入时间（滚动鼠标可快速调节）<br>
+    <div id="timeChooser" class="backgrounds">
+        <label id="chooserLabel">
+            <!-- 请输入时间（滚动鼠标可快速调节）<br> -->
             标题<input id="title" value="未命名"><br>
-            <input id="year">年
-            <input id="month">月
-            <input id="day">日
-            <input id="hour">时
-            <input id="minute">分
-            <input id="second">秒<br>
-            <button id="commit">提交</button>
-            <button id="done">完成</button>
+            <input id="year">年<input id="month">月<input id="day">日<input id="hour">时<input id="minute">分<input id="second">秒<br>
+            <button id="commit" class="ok_CancelBtns">提交</button>
+            <button id="closeChooser" class="ok_CancelBtns">关闭</button>
         </label>
+    </div>
+    <div id="settingsDiv" class="backgrounds">
+        <button id="clearBtn" class="settingBtn"><span class="settingBtnSpan">🗑️清空数据</span><span class="settingBtnSpan arrows">&gt;</span></button>
+            <div id="clearDiv" class="backgrounds">
+                <label id="clearLabel"><br>
+                    <span style="font-size:25px">🗑️清空数据</span><br><br>
+                    清除后将释放<span id="dataSize" style="color: rgb(255, 98, 0);"></span>kB缓存<br>
+                    <span style="color: crimson;">点击确认并刷新网页后<br>数据将被全部清除！</span><br>
+                    <button id="confirmClear" class="ok_CancelBtns">确认</button>
+                    <button id="cancelClear" class="ok_CancelBtns">取消</button></label>   
+            </div>
     </div>
     <script src="js/myFuncs.js"></script>
     <script src="js/倒计时2.js"></script>
