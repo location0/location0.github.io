@@ -1,7 +1,7 @@
 //获取用户数据
 // localStorage.removeItem("uArr");
 let usersArr = JSON.parse(localStorage.getItem("uArr"));
-let openTime = new Date();
+let openTime = new Date(Math.round((+new Date(new Date()))/1000)*1000);//非常逆天的操作舍弃openTime的毫秒
 if(usersArr==null){
     usersArr = [[],["访问本网站",openTime]];
 }
@@ -28,7 +28,7 @@ let dataSizeSpan = getEles("dataSize");//获取填写数据大小的span
 let confirmClearBtn = getEles("confirmClear");//确认清空缓存
 let cancelClearBtn = getEles("cancelClear");//取消清空
 
-//循环获取所有输入框
+//循环获取所有输入框元素
 let inputsArr = [];
 for(a=0;a<timesArr.length;a++){
     inputsArr[a] = getEles(timesArr[a]);
@@ -68,7 +68,7 @@ window.addEventListener("click",function(event){
 })
 
 
-//选中input自动全选
+//选中input后自动全选
 for(a=0;a<inputsArr.length;a++){
     inputsArr[a].addEventListener("focus",function(){
         this.select();
@@ -80,10 +80,12 @@ titleInput.addEventListener("focus",function(){
 
 //注册监听鼠标滚动函数
 function mouseWheelChoosingTime(element,setmethod){
-    //大部分浏览器
+    //大部分浏览器添加滚动选择
     element.onmousewheel = function (event){
         targetTime = new Date(String(inputsArr[0].value)+"/"+String(inputsArr[1].value)+"/"+String(inputsArr[2].value)+" "+String(inputsArr[3].value)+":"+String(inputsArr[4].value+":")+String(inputsArr[5].value));
+        //上滚
         if (event.wheelDelta > 0){
+            //月份是SB
             if(element==inputsArr[1]){
                 eval("targetTime"+"."+String(setmethod)+"("+String(parseInt(element.value))+")");
             }   
@@ -101,26 +103,8 @@ function mouseWheelChoosingTime(element,setmethod){
         }
         refreshInputValues(targetTime);
     }
-    //火狐
-    element.addEventListener('DOMMouseScroll', (event) => {
-        targetTime = new Date(String(inputsArr[0].value)+"/"+String(inputsArr[1].value)+"/"+String(inputsArr[2].value)+" "+String(inputsArr[3].value)+":"+String(inputsArr[4].value+":")+String(inputsArr[5].value));
-        if (event.detail > 0) {
-            if(element==inputsArr[1]){
-                eval("targetTime"+"."+String(setmethod)+"("+String(parseInt(element.value)+2)+")");
-            }   
-            else{      
-                eval("targetTime"+"."+String(setmethod)+"("+String(parseInt(element.value)+1)+")");
-            }
-        }
-        else {
-            if(element==inputsArr[1]){
-                eval("targetTime"+"."+String(setmethod)+"("+String(parseInt(element.value))+")");
-            }   
-            else{      
-                eval("targetTime"+"."+String(setmethod)+"("+String(parseInt(element.value)-1)+")");
-            }
-        }
-    }, false);
+
+    element.addEventListener
 }
 
 //注册鼠标滚动
@@ -130,6 +114,8 @@ mouseWheelChoosingTime(inputsArr[2],"setDate");
 mouseWheelChoosingTime(inputsArr[3],"setHours");
 mouseWheelChoosingTime(inputsArr[4],"setMinutes");
 mouseWheelChoosingTime(inputsArr[5],"setSeconds");
+
+
 
 
 //检验年份输入合法性
@@ -263,4 +249,4 @@ function showTable(){
     theTable.innerHTML = writeHTMLOfTbody(toDisplayArray(usersArr));
 }
 
-setInterval(showTable,300);
+setInterval(showTable,50);

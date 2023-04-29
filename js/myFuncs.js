@@ -3,7 +3,7 @@
 //时间戳转化为时间   toTime(timeStamp)       int                 arr
 //倒计时            countDown(time)         String              arr
 //排序              sort(arr,orderArr)      arr arr             arr
-
+//全排列枚举        fullPermutation(arr)    arr                 arr
 
 
 
@@ -43,4 +43,22 @@ myFuncs.sort = (arr,orderArr)=>{
         result[SN] = arr[a];
     }
     return result;
+}
+
+myFuncs.fullPermutation = (arr)=>{
+    const permutations = [];
+    function permute(array, index) {
+        if (index === array.length - 1) {
+            permutations.push([...array]);
+            return;
+        }
+
+        for (let i = index; i < array.length; i++) {
+            [array[index], array[i]] = [array[i], array[index]];
+            permute(array, index + 1);
+            [array[index], array[i]] = [array[i], array[index]];
+        }
+    }
+    permute(arr,0);
+    return permutations;
 }
