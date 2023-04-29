@@ -1,11 +1,11 @@
 //获取用户数据
-// localStorage.removeItem("uArr");
 let usersArr = JSON.parse(localStorage.getItem("uArr"));
 let openTime = new Date(Math.round((+new Date(new Date()))/1000)*1000);//非常逆天的操作舍弃openTime的毫秒
 if(usersArr==null){
     usersArr = [[],["访问本网站",openTime]];
+    localStorage.setItem("uArr",JSON.stringify(usersArr));
 }
-
+console.log(usersArr)
 
 let timesArr = ["year","month","day","hour","minute","second"];
 let targetTime;
@@ -14,16 +14,24 @@ let targetTime;
 function getEles(eleName){
     return document.getElementById(eleName);
 }
-let theTable = document.querySelector("tbody");//表格
-let chooserDiv = getEles("timeChooser");//时间选择器背景
+let theTable = getEles("mainTbody");//表格
 let newBtn = getEles("new");//新建按钮
+
+let chooserDiv = getEles("timeChooser");//时间选择器背景
 let closeChooserBtn = getEles("closeChooser");//时间选择器关闭按钮
 let commitBtn = getEles("commit");//提交按钮
 let titleInput = getEles("title");//标题输入框
+
 let settingsBtn = getEles("settings");//设置按钮
 let settingsDiv = getEles("settingsDiv");//设置页面背景
+
+let editBtn = getEles("editBtn");//获取设置的编辑按钮
+let editBG = getEles("editBG");//编辑页背景
+let editTable = getEles("editTable");//编辑页面的表格
+let editDown = getEles("editDown");//编辑页“完成”
+
 let clearBtn = getEles("clearBtn");//清空数据
-let clearDiv = getEles("clearDiv");//清空数据背景
+let clearBG = getEles("clearBG");//清空数据背景
 let dataSizeSpan = getEles("dataSize");//获取填写数据大小的span
 let confirmClearBtn = getEles("confirmClear");//确认清空缓存
 let cancelClearBtn = getEles("cancelClear");//取消清空
@@ -50,20 +58,6 @@ closeChooserBtn.addEventListener("click",function(){
 window.addEventListener("click",function(event){
     if(event.target==chooserDiv){
         chooserDiv.style.display = "none";
-    }
-})
-
-//设置部分
-//点击设置按钮
-settingsBtn.addEventListener("click",function(){
-    settingsDiv.style.display = "flex";
-})
-//
-
-//点击屏幕其他位置
-window.addEventListener("click",function(event){
-    if(event.target==settingsDiv){
-        settingsDiv.style.display = "none";
     }
 })
 
@@ -116,8 +110,6 @@ mouseWheelChoosingTime(inputsArr[4],"setMinutes");
 mouseWheelChoosingTime(inputsArr[5],"setSeconds");
 
 
-
-
 //检验年份输入合法性
 inputsArr[0].addEventListener("input", function() {
 this.value = this.value.replace(/[^\d]/g, "");
@@ -153,25 +145,92 @@ commitBtn.addEventListener("click",function(){
 })
 
 
+//--设置部分--
+//点击设置按钮
+settingsBtn.addEventListener("click",function(){
+    settingsDiv.style.display = "block";
+})
+
+//点击屏幕其他位置
+window.addEventListener("click",function(event){
+    if(event.target==settingsDiv){
+        settingsDiv.style.display = "none";
+    }
+})
 
 //--设置窗口--
+//编辑
+function refreshEditTable(){
+    let tbodyOfEdit = "";
+    for(let r=1;r<usersArr.length;r++){
+        tbodyOfEdit = tbodyOfEdit + "<tr>" + "<td class=\"editTd\">" + usersArr[r][0] + "</td>"+
+                    "<td class=\"editTd\"><button class=\"editTableBtn\" id=\"editBtnsUp"+String(r)+"\">↑</button><button class=\"editTableBtn\" id=\"editBtnsDown"+String(r)+"\">↓</button>"+
+                    "<button class=\"editDeleteBtn\" id=\"editDeleteBtn"+String(r)+"\">⛔</button></td>";
+    }
+    editTable.innerHTML = tbodyOfEdit;
+    for(let r=1;r<usersArr.length;r++){
+        upBtn = getEles(String("editBtnsUp"+r));
+        downBtn = getEles("editBtnsDown"+String(r));
+        deleteBtn = getEles("editDeleteBtn"+String(r));
+        upBtn.addEventListener("click",function(){
+            if(r!=1){
+                let temp = usersArr[r];
+                usersArr[r] = usersArr[r-1];
+                usersArr[r-1] = temp;
+                localStorage.setItem("uArr",JSON.stringify(usersArr));
+                refreshEditTable();
+            }
+        })
+        downBtn.addEventListener("click",function(){
+            if(r!=usersArr.length-1){
+                let temp = usersArr[r];
+                usersArr[r] = usersArr[r+1];
+                usersArr[r+1] = temp;
+                localStorage.setItem("uArr",JSON.stringify(usersArr));
+                refreshEditTable();
+            }
+        })
+        deleteBtn.addEventListener("click",function(){
+            usersArr.splice(r,1);
+            localStorage.setItem("uArr",JSON.stringify(usersArr));
+            refreshEditTable();
+        })
+    }
+}
+
+editBtn.addEventListener("click",function(){
+    editBG.style.display = "block";
+    console.log(refreshEditTable())
+    refreshEditTable();
+})
+editDown.addEventListener("click",function(){
+    editBG.style.display = "none";
+})
+window.addEventListener("click",function(event){
+    if(event.target==editBG){
+        editBG.style.display = "none";
+    }
+})
+
+
+
 //清空
 clearBtn.addEventListener("click",function(){
-    clearDiv.style.display="block";
+    clearBG.style.display="block";
     dataSizeSpan.innerText = ((new Blob(usersArr)).size/1024).toFixed(2);
 
 })
 confirmClearBtn.addEventListener("click",function(){
-    clearDiv.style.display = "none";
+    clearBG.style.display = "none";
     localStorage.removeItem("uArr");
 })
 cancelClearBtn.addEventListener("click",function(){
-    clearDiv.style.display = "none";
+    clearBG.style.display = "none";
 })
 
 window.addEventListener("click",function(event){
-    if(event.target==clearDiv){
-        clearDiv.style.display = "none";
+    if(event.target==clearBG){
+        clearBG.style.display = "none";
     }
 })
 
@@ -228,16 +287,16 @@ function writeHTMLOfTbody(arr){
     for(let r=1;r<arr.length;r++){
         if(arr[r][1]=="还有"){
             theTbody = theTbody + "<tr>"+
-                        "<td>"+arr[r][0]+"</td>"+
-                        "<td style=\"color:blue\">"+arr[r][1]+"</td>"+
-                        "<td>"+arr[r][2]+"</td>"+
+                        "<td class=\"mainTd\">"+arr[r][0]+"</td>"+
+                        "<td class=\"mainTd\" style=\"color:blue\">"+arr[r][1]+"</td>"+
+                        "<td class=\"mainTd\">"+arr[r][2]+"</td>"+
                         "</tr>";
         }
         else{
             theTbody = theTbody + "<tr>"+
-                        "<td>"+arr[r][0]+"</td>"+
-                        "<td style=\"color:orange\">"+arr[r][1]+"</td>"+
-                        "<td>"+arr[r][2]+"</td>"+
+                        "<td class=\"mainTd\">"+arr[r][0]+"</td>"+
+                        "<td class=\"mainTd\" style=\"color:orange\">"+arr[r][1]+"</td>"+
+                        "<td class=\"mainTd\">"+arr[r][2]+"</td>"+
                         "</tr>";
         }
     }

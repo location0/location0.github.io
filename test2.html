@@ -1,13 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>测试标签</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="样式/test2style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>flex实现两行两列</title>
+    <style>
+        .flex-outer {
+            display: flex;
+            flex-wrap: wrap;
+        }        
 
+        .flex-outer article {
+            background: limegreen;
+            border: 1px solid #eee;
+            box-sizing: border-box;
+            color: #fff;
+            padding: 15px;
+        }
+
+        /* flex合并属性 */
+        .flex-outer.flex-attr article  {
+            flex: 1 0 50%;
+        }
+
+        /* flex-basis */
+        .flex-outer.flex-basis article {
+            flex-basis: 50%;
+        }
+
+        /* 设置width */
+        .flex-outer.width-attr article {
+            width: 50%;
+        }
+
+        pre {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
 </head>
-
 <body>
-    <h1>这里空空如也，因为我懒得写</h1>
+    <h3><pre><span>1.flex合并属性 </span><span>flex: 1 0 50%;</span></pre></h3>
+    <section class="flex-outer flex-attr">
+        <article>1</article>
+        <article>2</article>
+        <article>3</article>
+        <article>4</article>
+    </section>
+
+    <h3><pre><span>2.基准属性</span><span>flex-basis: 50%;</span></pre></h3>
+    <section class="flex-outer flex-basis">
+        <article>1</article>
+        <article>2</article>
+        <article>3</article>
+        <article>4</article>
+    </section>    
+
+    <h3><pre><span>3.设置width</span><span>width: 50%;</span></pre></h3>
+    <section class="flex-outer width-attr">
+        <article>1</article>
+        <article>2</article>
+        <article>3</article>
+        <article>4</article>
+    </section>    
 </body>
 </html>

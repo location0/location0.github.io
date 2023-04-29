@@ -6,11 +6,12 @@ body{
     background-color: rgb(250, 250, 248);
 }
 
-table{
+#mainTable{
     margin:auto;
     margin-top: 15px;
 }
-th{
+.mainTh{
+    user-select: none;
     text-align: center;
     padding-left: 15px;
     padding-right: 15px;
@@ -20,7 +21,8 @@ th{
     background-color: rgba(135,206,250, 0.25);
 }
 
-td{
+.mainTd{
+    user-select: none;
     text-align: center;
     padding-left: 10px;
     padding-right: 10px;
@@ -29,10 +31,12 @@ td{
     font-size: 20px;
 }
 
-
-
-
-
+span{
+    user-select: none;
+}
+br{
+    user-select: none;
+}
 
 #buttons{
     text-align: center;
@@ -128,7 +132,7 @@ input{
     top: 0;
     text-align: center;
     display: none;
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(0,0,0,0.75);
     width: 100%;
     height: 100%;
 }
@@ -155,7 +159,6 @@ input{
 }
 
 
-
 /*新建页提交&完成*/
 #commit{
     margin-right: 15px;
@@ -165,14 +168,13 @@ input{
 }
 
 /*设置页背景*/
-.settingDiv{
+.settingsDiv{
     justify-content: center;
     align-items: center;
-    display: flex;
 }
 
 .settingBtn{
-    margin: 0 auto;
+    margin: 20px auto;
     text-align: justify;
     font-size: 15px;
     width: 200px;
@@ -180,14 +182,40 @@ input{
     user-select: none;
     justify-content: space-between;
     align-items: center;
-    display: flex;
+    display:flex;
 }
 
-#clearBtn{
-    margin-top: 10vw;
+/*编辑*/
+#editTable{
+    margin:50px auto;
+    border-collapse:collapse;
+    border: 2.5px solid rgb(247, 190, 143);
+}
+.editTd{
+    user-select: none;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 15px;
+    background-color: rgb(246, 230, 210);
+    border-top: 3px solid black;
+    border-bottom: 3px solid black;
+}
+.editTableBtn{
+    user-select: none;
+    margin: 3px;
+    width: 20px;
+    background-color: rgb(246, 230, 210);
+    font-size: 23px;
+    border: 0;
+    cursor: pointer;
 }
 
-#clearLabel{
+
+/*清空数据*/
+#clearDiv{
     user-select: none;
     text-align: center;
     width: 300px;
@@ -199,11 +227,13 @@ input{
 }
 
 #confirmClear{
+    user-select: none;
     margin-top: 20px;
     margin-right: 15px;
 }
 
 #cancelClear{
+    user-select: none;
     margin-top: 20px;
     margin-left: 15px;
 }

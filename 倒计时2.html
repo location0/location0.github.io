@@ -11,19 +11,19 @@
     <title>倒计时2</title>
 </head>
 <body>
-    <table>
+    <table id="mainTable">
         <thead>
             <tr>
-                <th>标题</th>
-                <th>状态</th>
-                <th>时间</th>
+                <th class="mainTh">标题</th>
+                <th class="mainTh">状态</th>
+                <th class="mainTh">时间</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="mainTbody">
             <tr>
-                <td>欢迎您使用倒计时！</td>
-                <td>加载中……</td>
-                <td>请稍后</td>
+                <td class="mainTD">欢迎您使用倒计时！</td>
+                <td class="mainTD">加载中……</td>
+                <td class="mainTD">请稍后</td>
             </tr>
         </tbody>
     </table>
@@ -45,15 +45,21 @@
         </label>
     </div>
     <div id="settingsDiv" class="backgrounds">
+        <div style="display:block;margin-top:7vw"></div>
+        <button id="editBtn" class="settingBtn"><span class="settingBtnSpan">✍🏻编辑</span><span class="settingBtnSpan arrows">&gt;</span></button>
+            <div id="editBG" class="backgrounds">
+                <table id="editTable"></table>
+                <button id="editDown" class="ok_CancelBtns">完成</button>
+            </div>
         <button id="clearBtn" class="settingBtn"><span class="settingBtnSpan">🗑️清空数据</span><span class="settingBtnSpan arrows">&gt;</span></button>
-            <div id="clearDiv" class="backgrounds">
-                <label id="clearLabel"><br>
-                    <span style="font-size:25px">🗑️清空数据</span><br><br>
+            <div id="clearBG" class="backgrounds">
+                <div id="clearDiv"><br>
+                    <span style="font-size:25px;">🗑️清空数据</span><br><br>
                     清除后将释放<span id="dataSize" style="color: rgb(255, 98, 0);"></span>kB缓存<br>
                     <span style="color: crimson;">点击确认并刷新网页后<br>数据将被全部清除！</span><br>
                     <button id="confirmClear" class="ok_CancelBtns">确认</button>
                     <button id="cancelClear" class="ok_CancelBtns">取消</button>
-                </label>   
+                </div>   
             </div>
     </div>
     <script src="js/myFuncs.js"></script>
