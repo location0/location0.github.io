@@ -55,7 +55,17 @@ body{
     background:linear-gradient(90deg,rgb(119, 128, 222),rgb(160, 74, 144));
     background-size: 110%;
     background-position: -5px;
+}
 
+#newWarning{
+    color: rgb(226, 29, 29);
+    margin: 0 auto 30px auto;
+    font-size: 30px;
+    text-align: center;
+    display: block;
+    width: 350px;
+    height: 30px;
+    padding: 20px;
 }
 
 

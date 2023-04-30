@@ -22,6 +22,8 @@ let chooserDiv = getEles("timeChooser");//时间选择器背景
 let closeChooserBtn = getEles("closeChooser");//时间选择器关闭按钮
 let commitBtn = getEles("commit");//提交按钮
 let titleInput = getEles("title");//标题输入框
+let newWarningBG = getEles("newWarningBG");//不合法日期提示的背景
+let newWarningOk = getEles("newWarningOk");//提示的确认按钮
 
 let settingsBtn = getEles("settings");//设置按钮
 let settingsDiv = getEles("settingsDiv");//设置页面背景
@@ -100,7 +102,9 @@ function mouseWheelChoosingTime(element,setmethod){
                 eval("targetTime"+"."+String(setmethod)+"("+String(parseInt(element.value)-1)+")");
             }
         }
-        refreshInputValues(targetTime);
+        if(!isNaN(targetTime)){
+            refreshInputValues(targetTime);
+        }
     }
 }
 
@@ -143,8 +147,22 @@ titleInput.addEventListener("input",function(){
 //提交
 commitBtn.addEventListener("click",function(){
     targetTimeString = String(inputsArr[0].value)+"/"+String(inputsArr[1].value)+"/"+String(inputsArr[2].value)+" "+myFuncs.insert0(parseInt(inputsArr[3].value))+":"+myFuncs.insert0(parseInt(inputsArr[4].value))+":"+myFuncs.insert0(parseInt(inputsArr[5].value));
-    usersArr.push([titleInput.value,targetTimeString]);
-    localStorage.setItem("uArr",JSON.stringify(usersArr));
+    if(isNaN(+new Date(targetTimeString))){
+        newWarningBG.style.display = "block";
+    }
+    else{
+        usersArr.push([titleInput.value,targetTimeString]);
+        localStorage.setItem("uArr",JSON.stringify(usersArr));
+    }
+})
+
+newWarningOk.addEventListener("click",function(){
+    newWarningBG.style.display = "none";
+})
+window.addEventListener("click",function(event){
+    if(event.target==newWarningBG){
+        newWarningBG.style.display = "none";
+    }
 })
 
 
@@ -182,8 +200,6 @@ function refreshEditTable(){
                 let temp = newUsersArr[r];
                 newUsersArr[r] = newUsersArr[r-1];
                 newUsersArr[r-1] = temp;
-                console.log(usersArr);
-                console.log(newUsersArr);
                 refreshEditTable();
             }
         })
@@ -192,13 +208,11 @@ function refreshEditTable(){
                 let temp = newUsersArr[r];
                 newUsersArr[r] = newUsersArr[r+1];
                 newUsersArr[r+1] = temp;
-                console.log(usersArr);
                 refreshEditTable();
             }
         })
         deleteBtn.addEventListener("click",function(){
             newUsersArr.splice(r,1);
-            console.log(usersArr);
             refreshEditTable();
         })
     }
@@ -247,7 +261,6 @@ window.addEventListener("click",function(event){
     }
 })
 
-
 //帮助
 helpBtn.addEventListener("click",function(){
     helpBG.style.display="block";
@@ -260,9 +273,6 @@ window.addEventListener("click",function(event){
         helpBG.style.display = "none";
     }
 })
-
-
-
 
 
 

@@ -1,8 +1,8 @@
-let Arr = [1,2,3,4,5];
-function test(arr){
-    var newArr = arr;
-    newArr +=6;
-    console.log(newArr);
-    console.log(Arr);
+d = "2023/1/20 00:00:00";
+console.log(isNaN(+new Date(d)));
+if(isNaN(+new Date(d))){
+    console.log(1);
 }
-test(Arr);
+else{
+    console.log(2);
+}
