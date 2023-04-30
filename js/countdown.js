@@ -1,6 +1,7 @@
 //获取用户数据
 let usersArr = JSON.parse(localStorage.getItem("uArr"));
-let openTime = new Date(Math.round((+new Date(new Date()))/1000)*1000);//非常逆天的操作舍弃openTime的毫秒
+let openTime = new Date();
+openTime = String(openTime.getFullYear())+"/"+String(openTime.getMonth()+1)+"/"+String(openTime.getDate())+" "+myFuncs.insert0(openTime.getHours())+":"+myFuncs.insert0(openTime.getMinutes())+":"+myFuncs.insert0(openTime.getSeconds())
 if(usersArr==null){
     usersArr = [[],["访问本网站",openTime]];
     localStorage.setItem("uArr",JSON.stringify(usersArr));
@@ -29,12 +30,17 @@ let editBtn = getEles("editBtn");//获取设置的编辑按钮
 let editBG = getEles("editBG");//编辑页背景
 let editTable = getEles("editTable");//编辑页面的表格
 let editDown = getEles("editDown");//编辑页“完成”
+let editWaringSpan = getEles("editWarning");//没有计时提示
 
 let clearBtn = getEles("clearBtn");//清空数据
 let clearBG = getEles("clearBG");//清空数据背景
 let dataSizeSpan = getEles("dataSize");//获取填写数据大小的span
 let confirmClearBtn = getEles("confirmClear");//确认清空缓存
 let cancelClearBtn = getEles("cancelClear");//取消清空
+
+let helpBtn = getEles("helpBtn");//帮助按钮
+let helpBG = getEles("helpBG");//帮助页背景
+let helpDownBtn = getEles("helpDownBtn");//完成
 
 //循环获取所有输入框元素
 let inputsArr = [];
@@ -43,7 +49,6 @@ for(a=0;a<timesArr.length;a++){
 }
 
 //--添加事件监听--
-
 //点击新增按钮
 newBtn.addEventListener("click",function(){
     chooserDiv.style.display = "block";
@@ -97,8 +102,6 @@ function mouseWheelChoosingTime(element,setmethod){
         }
         refreshInputValues(targetTime);
     }
-
-    element.addEventListener
 }
 
 //注册鼠标滚动
@@ -139,7 +142,7 @@ titleInput.addEventListener("input",function(){
 
 //提交
 commitBtn.addEventListener("click",function(){
-    targetTimeString = String(inputsArr[0].value)+"/"+String(inputsArr[1].value)+"/"+String(inputsArr[2].value)+" "+String(inputsArr[3].value)+":"+String(inputsArr[4].value+":")+String(inputsArr[5].value);
+    targetTimeString = String(inputsArr[0].value)+"/"+String(inputsArr[1].value)+"/"+String(inputsArr[2].value)+" "+myFuncs.insert0(parseInt(inputsArr[3].value))+":"+myFuncs.insert0(parseInt(inputsArr[4].value))+":"+myFuncs.insert0(parseInt(inputsArr[5].value));
     usersArr.push([titleInput.value,targetTimeString]);
     localStorage.setItem("uArr",JSON.stringify(usersArr));
 })
@@ -160,39 +163,42 @@ window.addEventListener("click",function(event){
 
 //--设置窗口--
 //编辑
+let newUsersArr = [].concat(usersArr);
 function refreshEditTable(){
     let tbodyOfEdit = "";
-    for(let r=1;r<usersArr.length;r++){
-        tbodyOfEdit = tbodyOfEdit + "<tr>" + "<td class=\"editTd\">" + usersArr[r][0] + "</td>"+
+    for(let r=1;r<newUsersArr.length;r++){
+        tbodyOfEdit = tbodyOfEdit + "<tr>" + "<td class=\"editTd\" style=\"font-size:8px;color:rgba(0,0,0,0.6);\">"+newUsersArr[r][1]+"</td>"+
+                    "<td class=\"editTd\">" + newUsersArr[r][0] + "</td>"+
                     "<td class=\"editTd\"><button class=\"editTableBtn\" id=\"editBtnsUp"+String(r)+"\">↑</button><button class=\"editTableBtn\" id=\"editBtnsDown"+String(r)+"\">↓</button>"+
                     "<button class=\"editDeleteBtn\" id=\"editDeleteBtn"+String(r)+"\">⛔</button></td>";
     }
     editTable.innerHTML = tbodyOfEdit;
-    for(let r=1;r<usersArr.length;r++){
+    for(let r=1;r<newUsersArr.length;r++){
         upBtn = getEles(String("editBtnsUp"+r));
         downBtn = getEles("editBtnsDown"+String(r));
         deleteBtn = getEles("editDeleteBtn"+String(r));
         upBtn.addEventListener("click",function(){
             if(r!=1){
-                let temp = usersArr[r];
-                usersArr[r] = usersArr[r-1];
-                usersArr[r-1] = temp;
-                localStorage.setItem("uArr",JSON.stringify(usersArr));
+                let temp = newUsersArr[r];
+                newUsersArr[r] = newUsersArr[r-1];
+                newUsersArr[r-1] = temp;
+                console.log(usersArr);
+                console.log(newUsersArr);
                 refreshEditTable();
             }
         })
         downBtn.addEventListener("click",function(){
-            if(r!=usersArr.length-1){
-                let temp = usersArr[r];
-                usersArr[r] = usersArr[r+1];
-                usersArr[r+1] = temp;
-                localStorage.setItem("uArr",JSON.stringify(usersArr));
+            if(r!=newUsersArr.length-1){
+                let temp = newUsersArr[r];
+                newUsersArr[r] = newUsersArr[r+1];
+                newUsersArr[r+1] = temp;
+                console.log(usersArr);
                 refreshEditTable();
             }
         })
         deleteBtn.addEventListener("click",function(){
-            usersArr.splice(r,1);
-            localStorage.setItem("uArr",JSON.stringify(usersArr));
+            newUsersArr.splice(r,1);
+            console.log(usersArr);
             refreshEditTable();
         })
     }
@@ -200,11 +206,19 @@ function refreshEditTable(){
 
 editBtn.addEventListener("click",function(){
     editBG.style.display = "block";
-    console.log(refreshEditTable())
+    if(usersArr.length==1){
+        editWaringSpan.style.display = "block";
+    }
+    else{
+        editWaringSpan.style.display = "none";
+    }
+    newUsersArr = [].concat(usersArr);
     refreshEditTable();
 })
 editDown.addEventListener("click",function(){
     editBG.style.display = "none";
+    usersArr = [].concat(newUsersArr);
+    localStorage.setItem("uArr",JSON.stringify(usersArr));
 })
 window.addEventListener("click",function(event){
     if(event.target==editBG){
@@ -218,7 +232,6 @@ window.addEventListener("click",function(event){
 clearBtn.addEventListener("click",function(){
     clearBG.style.display="block";
     dataSizeSpan.innerText = ((new Blob(usersArr)).size/1024).toFixed(2);
-
 })
 confirmClearBtn.addEventListener("click",function(){
     clearBG.style.display = "none";
@@ -235,10 +248,25 @@ window.addEventListener("click",function(event){
 })
 
 
+//帮助
+helpBtn.addEventListener("click",function(){
+    helpBG.style.display="block";
+})
+helpDownBtn.addEventListener("click",function(){
+    helpBG.style.display="none";
+})
+window.addEventListener("click",function(event){
+    if(event.target==helpBG){
+        helpBG.style.display = "none";
+    }
+})
 
 
 
 
+
+
+//--显示主表格--
 //将input值设为传入时间
 function refreshInputValues(_Time){
     inputsArr[0].value = _Time.getFullYear();
@@ -248,7 +276,6 @@ function refreshInputValues(_Time){
     inputsArr[4].value = _Time.getMinutes();
     inputsArr[5].value = _Time.getSeconds();
 }
-
 
 //转为输出数组
 function toDisplayArray(arr){
@@ -307,5 +334,4 @@ function writeHTMLOfTbody(arr){
 function showTable(){
     theTable.innerHTML = writeHTMLOfTbody(toDisplayArray(usersArr));
 }
-
 setInterval(showTable,50);
