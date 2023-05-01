@@ -3,9 +3,10 @@ let usersArr = JSON.parse(localStorage.getItem("uArr"));
 let openTime = new Date();
 openTime = String(openTime.getFullYear())+"/"+String(openTime.getMonth()+1)+"/"+String(openTime.getDate())+" "+myFuncs.insert0(openTime.getHours())+":"+myFuncs.insert0(openTime.getMinutes())+":"+myFuncs.insert0(openTime.getSeconds())
 if(usersArr==null){
-    usersArr = [[],["访问本网站",openTime]];
+    usersArr = [[0],["访问本网站",openTime]];
     localStorage.setItem("uArr",JSON.stringify(usersArr));
 }
+let showArr = sortArr(usersArr,usersArr[0][0]);
 console.log(usersArr)
 
 let timesArr = ["year","month","day","hour","minute","second"];
@@ -39,6 +40,9 @@ let clearBG = getEles("clearBG");//清空数据背景
 let dataSizeSpan = getEles("dataSize");//获取填写数据大小的span
 let confirmClearBtn = getEles("confirmClear");//确认清空缓存
 let cancelClearBtn = getEles("cancelClear");//取消清空
+
+let orderBtn = getEles("orderBtn");//排列顺序按钮
+let orderSpan = getEles("orderSpan");//当前排列顺序
 
 let helpBtn = getEles("helpBtn");//帮助按钮
 let helpBG = getEles("helpBG");//帮助页背景
@@ -153,6 +157,7 @@ commitBtn.addEventListener("click",function(){
     else{
         usersArr.push([titleInput.value,targetTimeString]);
         localStorage.setItem("uArr",JSON.stringify(usersArr));
+        showArr = sortArr(usersArr,usersArr[0][0]);
     }
 })
 
@@ -170,6 +175,15 @@ window.addEventListener("click",function(event){
 //点击设置按钮
 settingsBtn.addEventListener("click",function(){
     settingsDiv.style.display = "block";
+    if(usersArr[0][0]==0){
+        orderSpan.innerText = "默认";
+    }
+    else if(usersArr[0][0]==1){
+        orderSpan.innerText = "升序";
+    }
+    else{
+        orderSpan.innerText = "降序";
+    }
 })
 
 //点击屏幕其他位置
@@ -179,7 +193,7 @@ window.addEventListener("click",function(event){
     }
 })
 
-//--设置窗口--
+
 //编辑
 let newUsersArr = [].concat(usersArr);
 function refreshEditTable(){
@@ -233,6 +247,7 @@ editDown.addEventListener("click",function(){
     editBG.style.display = "none";
     usersArr = [].concat(newUsersArr);
     localStorage.setItem("uArr",JSON.stringify(usersArr));
+    showArr = sortArr(usersArr,usersArr[0][0]);
 })
 window.addEventListener("click",function(event){
     if(event.target==editBG){
@@ -258,6 +273,61 @@ cancelClearBtn.addEventListener("click",function(){
 window.addEventListener("click",function(event){
     if(event.target==clearBG){
         clearBG.style.display = "none";
+    }
+})
+
+//排列顺序
+function sortArr(inarr,n){
+    let arr = [].concat(inarr);
+    if(arr.length<2||n==0){
+        return arr;
+    }
+    else if(n==1){
+        for(let i=1;i<arr.length-1;i++){
+            for(let j=1;j<arr.length-i;j++){
+                if(+new Date(arr[j][1])>+new Date(arr[j+1][1])){
+                    let temp = arr[j];
+                    arr[j] = arr[j+1];
+                    arr[j+1] = temp;
+                }
+            }
+        }
+        return arr
+    }
+    else{
+        for(let i=1;i<arr.length-1;i++){
+            for(let j=1;j<arr.length-i;j++){
+                if(+new Date(arr[j][1])<+new Date(arr[j+1][1])){
+                    let temp = arr[j];
+                    arr[j] = arr[j+1];
+                    arr[j+1] = temp;
+                }
+            }
+        }
+        return arr
+    }
+}
+
+orderBtn.addEventListener("click",function(){
+    console.log(usersArr);
+    console.log(showArr);
+    if(usersArr[0][0]==0){
+        usersArr[0][0]=1;
+        localStorage.setItem("uArr",JSON.stringify(usersArr));
+        showArr = sortArr(usersArr,1);
+        orderSpan.innerText = "升序";
+    }
+    else if(usersArr[0][0]==1){
+        usersArr[0][0]=2;
+        localStorage.setItem("uArr",JSON.stringify(usersArr));
+        showArr = sortArr(usersArr,2);
+        orderSpan.innerText = "降序";
+    }
+    else{
+        usersArr[0][0]=0;
+        localStorage.setItem("uArr",JSON.stringify(usersArr));
+        showArr = sortArr(usersArr,0);
+        orderSpan.innerText = "默认";
     }
 })
 
@@ -342,6 +412,6 @@ function writeHTMLOfTbody(arr){
 
 //更新表格
 function showTable(){
-    theTable.innerHTML = writeHTMLOfTbody(toDisplayArray(usersArr));
+    theTable.innerHTML = writeHTMLOfTbody(toDisplayArray(showArr));
 }
 setInterval(showTable,50);

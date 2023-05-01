@@ -1,8 +1,14 @@
-d = "2023/1/20 00:00:00";
-console.log(isNaN(+new Date(d)));
-if(isNaN(+new Date(d))){
-    console.log(1);
+Arr=[[],1,2,3,5,5,3,4];
+function sort(arr){
+    for(let i=1;i<arr.length-1;i++){
+        for(let j=1;j<arr.length-i;j++){
+            if(arr[j]<arr[j+1]){
+                let temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+        }
+    }
+    return arr;
 }
-else{
-    console.log(2);
-}
+console.log(sort(Arr));
