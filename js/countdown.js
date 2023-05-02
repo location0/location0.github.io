@@ -3,7 +3,7 @@ let usersArr = JSON.parse(localStorage.getItem("uArr"));
 let openTime = new Date();
 openTime = String(openTime.getFullYear())+"/"+String(openTime.getMonth()+1)+"/"+String(openTime.getDate())+" "+myFuncs.insert0(openTime.getHours())+":"+myFuncs.insert0(openTime.getMinutes())+":"+myFuncs.insert0(openTime.getSeconds())
 if(usersArr==null){
-    usersArr = [[0],["访问本网站",openTime]];
+    usersArr = [[0],["访问本网站",openTime,0,0]];
     localStorage.setItem("uArr",JSON.stringify(usersArr));
 }
 let showArr = sortArr(usersArr,usersArr[0][0]);
@@ -25,6 +25,12 @@ let commitBtn = getEles("commit");//提交按钮
 let titleInput = getEles("title");//标题输入框
 let newWarningBG = getEles("newWarningBG");//不合法日期提示的背景
 let newWarningOk = getEles("newWarningOk");//提示的确认按钮
+
+let cycleBtn = getEles("cycleBtn");//是否循环
+let cycleBtnicon = getEles("cycleicon");//状态
+let chooserLabel = getEles("chooserLabel");//新建的背景
+let cycleDiv = getEles("cycleDiv");//循环的页面
+let cycleInput = getEles("cycleInput");//获取循环周期的输入框
 
 let settingsBtn = getEles("settings");//设置按钮
 let settingsDiv = getEles("settingsDiv");//设置页面背景
@@ -123,7 +129,7 @@ mouseWheelChoosingTime(inputsArr[5],"setSeconds");
 
 //检验年份输入合法性
 inputsArr[0].addEventListener("input", function() {
-this.value = this.value.replace(/[^\d]/g, "");
+    this.value = this.value.replace(/[^\d]/g, "");
 });
 
 //添加上下限
@@ -155,7 +161,12 @@ commitBtn.addEventListener("click",function(){
         newWarningBG.style.display = "block";
     }
     else{
-        usersArr.push([titleInput.value,targetTimeString]);
+        if(isCycle==0){
+            usersArr.push([titleInput.value,targetTimeString,0,0]);
+        }
+        else{
+            usersArr.push([titleInput.value,targetTimeString,1,parseInt(cycleInput.value)]);
+        }
         localStorage.setItem("uArr",JSON.stringify(usersArr));
         showArr = sortArr(usersArr,usersArr[0][0]);
     }
@@ -169,6 +180,39 @@ window.addEventListener("click",function(event){
         newWarningBG.style.display = "none";
     }
 })
+
+
+let isCycle = 0;
+cycleBtn.addEventListener("click",function(){
+    if(isCycle==0){
+        cycleBtnicon.style.marginLeft = "27px";
+        cycleBtn.style.backgroundColor = "rgb(101,196,104)";
+        chooserLabel.style.height = "400px";
+        setTimeout("cycleDiv.style.display = \"block\";",100);        
+        isCycle = 1;
+    }
+    else{
+        cycleBtnicon.style.marginLeft = "3px";
+        cycleBtn.style.backgroundColor = "gainsboro";
+        chooserLabel.style.height = "215px";
+        setTimeout("cycleDiv.style.display = \"none\";",210);
+        isCycle = 0;
+    }
+})
+varify(cycleInput,1,Infinity);
+cycleInput.addEventListener("focus",function(){
+    cycleInput.select();
+})
+cycleInput.value = 1;
+cycleInput.onmousewheel = function(event){
+    if(event.wheelDelta>0){
+        cycleInput.value = parseInt(cycleInput.value)+1;
+    }
+    else if(parseInt(cycleInput.value)>1){
+        cycleInput.value = parseInt(cycleInput.value)-1;
+    }
+}
+
 
 
 //--设置部分--
@@ -199,7 +243,12 @@ let newUsersArr = [].concat(usersArr);
 function refreshEditTable(){
     let tbodyOfEdit = "";
     for(let r=1;r<newUsersArr.length;r++){
-        tbodyOfEdit = tbodyOfEdit + "<tr>" + "<td class=\"editTd\" style=\"font-size:8px;color:rgba(0,0,0,0.6);\">"+newUsersArr[r][1]+"</td>"+
+        let cycleTxt = "不重复";
+        if(newUsersArr[r][2]==1){
+            cycleTxt = "每"+newUsersArr[r][3]+"天  ";
+        }
+        tbodyOfEdit = tbodyOfEdit + "<tr>" + "<td class=\"editTd\" style=\"font-size:10px;color:rgba(0,0,0,0.7);\">"+cycleTxt+"</td>"+
+                    "<td class=\"editTd\" style=\"font-size:8px;color:rgba(0,0,0,0.6);\">"+newUsersArr[r][1]+"</td>"+
                     "<td class=\"editTd\">" + newUsersArr[r][0] + "</td>"+
                     "<td class=\"editTd\"><button class=\"editTableBtn\" id=\"editBtnsUp"+String(r)+"\">↑</button><button class=\"editTableBtn\" id=\"editBtnsDown"+String(r)+"\">↓</button>"+
                     "<button class=\"editDeleteBtn\" id=\"editDeleteBtn"+String(r)+"\">⛔</button></td>";
@@ -278,7 +327,19 @@ window.addEventListener("click",function(event){
 
 //排列顺序
 function sortArr(inarr,n){
-    let arr = [].concat(inarr);
+    let arr = [inarr[1]];
+    for(let i=1;i<inarr.length;i++){//判断循环
+        arr[i] = [].concat(inarr[i]);
+        if(inarr[i][2]==1&&+new Date()>+new Date(inarr[i][1])){
+            arr[i][1] = new Date(
+                Math.ceil(
+                    (+new Date()- +new Date(arr[i][1]))/(1000*60*60*24*arr[i][3]))*(1000*60*60*24*arr[i][3]
+                )+ +new Date(arr[i][1])
+            );
+       }
+    }
+
+    //排序
     if(arr.length<2||n==0){
         return arr;
     }
@@ -309,8 +370,6 @@ function sortArr(inarr,n){
 }
 
 orderBtn.addEventListener("click",function(){
-    console.log(usersArr);
-    console.log(showArr);
     if(usersArr[0][0]==0){
         usersArr[0][0]=1;
         localStorage.setItem("uArr",JSON.stringify(usersArr));

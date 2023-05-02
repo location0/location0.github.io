@@ -12,3 +12,10 @@ function sort(arr){
     return arr;
 }
 console.log(sort(Arr));
+arr2 = [[1,2]];
+arr3 = [5,6];
+// arr2.push(arr3);
+// arr2[2] = [8,9];
+arr3 = [arr2];
+console.log(arr2);
+console.log(arr3);
