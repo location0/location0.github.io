@@ -471,6 +471,7 @@ function writeHTMLOfTbody(arr){
 
 //更新表格
 function showTable(){
-    theTable.innerHTML = writeHTMLOfTbody(toDisplayArray(showArr));
+    theTable.innerHTML = writeHTMLOfTbody(toDisplayArray(sortArr(showArr,usersArr[0][0])));
+    //此处showArr可以替换为usersArr，这样之前的showArr都可以删去。留着可能提升性能，可能不会
 }
 setInterval(showTable,50);
