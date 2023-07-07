@@ -101,5 +101,12 @@ calBtn.addEventListener("click",function(){
             }
         }
     }
-    resultSpan.innerText = theResult;
+    console.log(theResult);
+    if(theResult===""){
+        console.log(1)
+        resultSpan.innerText = "无解"+(new Date()).getHours()+":"+(new Date()).getMinutes()+":"+(new Date()).getSeconds();
+    }
+    else{
+        resultSpan.innerText = theResult;
+    }
 })
