@@ -1,0 +1,63 @@
+*{
+    padding: 0;
+    margin: 0;
+    user-select: none;
+}
+
+button{
+    margin: 20px 7px 0px 7px;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 0;
+    height:60px;
+    width: 60px;
+    font-size: 23px;
+    transition: all 200ms ease;
+    background-color: rgb(197,233,253);
+    color: black;
+}
+
+button:hover{
+    transform: scale(1.10);
+}
+
+#fst{
+    margin-left: 20px;
+}
+
+#cal{
+    margin-left: 20px;
+    width: 95px;
+    border-radius: 30px;
+    background-color: rgb(149, 146, 235);
+}
+
+#chooseNumDiv{
+    cursor: pointer;
+    display: none;
+    background-color: rgba(0,0,0,0.5);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    top:0
+}
+
+#chooseNumTable{
+    margin: 150px auto;
+}
+
+.numbers{
+    background-color: rgb(225, 173, 240);
+    color: rgb(0, 0, 0);
+}
+
+#resultDiv{
+    margin-top: 20px;
+    background-color: rgba(0,0,0,0.02);
+}
+
+#result{
+    margin-left: 20px;
+    font-size: 20px;
+}

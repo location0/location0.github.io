@@ -1,10 +1,10 @@
 let isFinished = false;
 let textTimeNow = "";
 let textNow = "";
-let theText = "春节即将到来🎉，提前祝你新年快乐🎊，祝你幸福无限🌈\n\
+let theText = "新年即将到来🎉，提前祝你新年快乐🎊，祝你幸福无限🌈\n\
 愿你事业有成💼，家庭幸福👨‍👩‍👧‍👦，健康快乐🏃‍♂️，梦想成真🎉\n\
 转发给10个最好的朋友💬，新年愿望都能实现哦💌";//祝福语
-let theTargetTime = "2023/1/22 00:00:00";//目标时间
+let theTargetTime = "2024/1/1 00:00:00";//目标时间
 let isVisible = 1;//默认显示文字和打赏
 
 //获取元素对象
@@ -82,13 +82,13 @@ function countDown(time)
 }
 //分割字符
 let cdArr = countDown(theTargetTime);//倒计时结果数组
-let splitedTime = ("距离2023年春节"+cdArr[0]+cdArr[1]+"天"+cdArr[2]+"时"+cdArr[3]+"分"+cdArr[4]+"秒").split("");
+let splitedTime = ("距离2024年元旦"+cdArr[0]+cdArr[1]+"天"+cdArr[2]+"时"+cdArr[3]+"分"+cdArr[4]+"秒").split("");
 let splitedText = theText.split("");
 
 //刷新时间
 function refreshTime(){
     cdArr = countDown(theTargetTime);//刷新倒计时结果
-    pOfTime.innerHTML = "距离2023年春节"+cdArr[0]+
+    pOfTime.innerHTML = "距离2024年元旦"+cdArr[0]+
                         "<span style=\"color:orange\">"+cdArr[1]+"</span>天"+
                         "<span style=\"color:orange\">"+cdArr[2]+"</span>时"+
                         "<span style=\"color:orange\">"+cdArr[3]+"</span>分"+

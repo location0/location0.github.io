@@ -1,19 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>24点</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/24点.css">
+    <link rel="icon" type="image/x-icon" href="img/图标_1.13_2.ico">
 </head>
 <body>
-    <label>
-        <input id="fst"><input id="snd"><input id="trd"><input id="fth">
-    </label>
+    <button id="firstButton">1</button>
+    <button id="secondButton">1</button>
+    <button id="thirdButton">1</button>
+    <button id="fourthButton">1</button>
     <button id="cal">计算</button>
-    <div>
-        <span id="result"></span>
+    <div id="resultDiv">
+        <span style="font-size: 20px;margin-left: 20px;">结果为：</span><br>
+        <p id="result"></p>
     </div>
+    <div id="chooseNumDiv">
+        <table id="chooseNumTable">
+            <tr>
+                <td><button class="numbers" id="1">1</button></td>
+                <td><button class="numbers" id="2">2</button></td>
+                <td><button class="numbers" id="3">3</button></td>
+            </tr>
+            <tr>
+                <td><button class="numbers" id="4">4</button></td>
+                <td><button class="numbers" id="5">5</button></td>
+                <td><button class="numbers" id="6">6</button></td>
+            </tr>
+            <tr>
+                <td><button class="numbers" id="7">7</button></td>
+                <td><button class="numbers" id="8">8</button></td>
+                <td><button class="numbers" id="9">9</button></td>
+            </tr>
+        </table>
+    </div>
+
     <script src="js/myFuncs.js"></script>
     <script src="js/24点.js"></script>
 </body>
