@@ -78,12 +78,12 @@ function showRecord(theTime){
 //高级
 seniorBtn.addEventListener("click",function(){
     if(isSenior==0){
-        seniorBtnicon.style.marginLeft = "30px";
+        seniorBtnicon.style.marginLeft = "35px";
         seniorBtn.style.backgroundColor = "rgb(101,196,104)";      
         isSenior = 1;
     }
     else{
-        seniorBtnicon.style.marginLeft = "-1px";
+        seniorBtnicon.style.marginLeft = "3px";
         seniorBtn.style.backgroundColor = "gainsboro";
         isSenior = 0;
     }

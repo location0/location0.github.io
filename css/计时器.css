@@ -1,3 +1,7 @@
+*{                   /*默认无边距*/
+    padding: 0;
+    margin: 0;
+}
 body{
     position: fixed;
     top: 0;
@@ -72,7 +76,7 @@ img{
     border: none;
     border-radius: 22px;
     transition: 0.5s;
-    background-color: "gainsboro";
+    background-color: gainsboro;
 }
 
 #senioricon{
@@ -80,6 +84,6 @@ img{
     background-color: white;
     height: 24px;
     width: 24px;
-    margin-left: -1px;
+    margin-left: 3px;
     border-radius: 24px;
 }
