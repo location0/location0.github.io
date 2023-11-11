@@ -48,7 +48,7 @@ for(let i=0;i<9;i++){
 
 
 let symbols = ["+","-","*","/"];
-function fullPermutation(arr){
+function fullPermutation(arr){ //全排列输入的arr
     const permutations = [];
     function permute(array, index) {
         if (index === array.length - 1) {
@@ -71,6 +71,7 @@ calBtn.addEventListener("click",function(){
     let fullPermutationArr = fullPermutation(inputArr);
     let theResult = "";
 
+    //遍历每种符号组合
     for(let fstCalSymbol = 0;fstCalSymbol<4;fstCalSymbol++){
         for(let sndCalSymbol=0;sndCalSymbol<4;sndCalSymbol++){
             for(let trdCalSymbol=0;trdCalSymbol<4;trdCalSymbol++){
@@ -81,6 +82,7 @@ calBtn.addEventListener("click",function(){
                 let expr5=0;
                 let expr6=0;
                 let expr7=0;
+                //循环遍历输入数组全排列后的每个数组的计算可能性
                 for(let arrIndex=0;arrIndex<24;arrIndex++){
                     //abcd
                     let expression =String(fullPermutationArr[arrIndex][0])+symbols[fstCalSymbol]+

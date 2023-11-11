@@ -1,0 +1,77 @@
+<script>
+let symbols = ["+","-","*","/"];
+function is24points(a,b,c,d){
+    for(let fstCalSymbol = 0;fstCalSymbol<4;fstCalSymbol++){
+        for(let sndCalSymbol=0;sndCalSymbol<4;sndCalSymbol++){
+            for(let trdCalSymbol=0;trdCalSymbol<4;trdCalSymbol++){
+                if(eval(String(a)+symbols[fstCalSymbol]+
+                                    String(b)+symbols[sndCalSymbol]+
+                                    String(c)+symbols[trdCalSymbol]+
+                                    String(d))==24){
+                                        return true;
+                                    }
+                if(eval("("+String(a)+symbols[fstCalSymbol]+
+                                    String(b)+")"+symbols[sndCalSymbol]+
+                                    String(c)+symbols[trdCalSymbol]+
+                                    String(d))==24){
+                    return true;
+                }
+                if(eval("("+String(a)+symbols[fstCalSymbol]+
+                                    String(b)+symbols[sndCalSymbol]+
+                                    String(c)+")"+symbols[trdCalSymbol]+
+                                    String(d))==24){
+                    return true;
+                }
+                if(eval(String(a)+symbols[fstCalSymbol]+"("+
+                                    String(b)+symbols[sndCalSymbol]+
+                                    String(c)+")"+symbols[trdCalSymbol]+
+                                    String(d))==24){
+                    return true;
+                }
+                if(eval(String(a)+symbols[fstCalSymbol]+"("+
+                                    String(b)+symbols[sndCalSymbol]+
+                                    String(c)+symbols[trdCalSymbol]+
+                                    String(d)+")")==24){
+                    return true;
+                }
+                if(eval(String(a)+symbols[fstCalSymbol]+
+                                    String(b)+symbols[sndCalSymbol]+"("+
+                                    String(c)+symbols[trdCalSymbol]+
+                                    String(d)+")")==24){
+                    return true;
+                }
+                if(eval("("+String(a)+symbols[fstCalSymbol]+
+                                    String(b)+")"+symbols[sndCalSymbol]+"("+
+                                    String(c)+symbols[trdCalSymbol]+
+                                    String(d)+")")==24){
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+let maxnum=11;
+for(let maxnum=1;maxnum<30;maxnum++){
+    let max=0;
+    let output="";
+    let thea=1;
+    for(let a=thea;a<maxnum+1;a++){
+        for(let b=1;b<maxnum+1;b++){
+            for(let c=1;c<maxnum+1;c++){
+                for(let d=1;d<maxnum+1;d++){
+                    if(a+b+c+d>max){
+                        if(is24points(a,b,c,d)){
+                            max=a+b+c+d;
+                            output=String(a)+","+String(b)+","+String(c)+","+String(d);
+                            thea=a;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    console.log(String(maxnum)+"--"+String(max)+":"+String(output));
+}
+</script>

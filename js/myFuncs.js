@@ -1,6 +1,7 @@
 // 全部函数         名称                    参数类型            返回类型
 //不满10补0         insert0(num)            int                 string
-//时间戳转化为时间   toTime(timeStamp)       int                 arr
+//不满100补0        insert0Of1000(num)      int                 string
+//时间戳化为具体时间 toTime(timeStamp)       int                 arr
 //倒计时            countDown(time)         String              arr
 //排序              sort(arr,orderArr)      arr arr             arr
 
@@ -9,6 +10,17 @@
 const myFuncs = {};
 //补0
 myFuncs.insert0 = (num)=>{return num<10?"0"+num:String(num);}
+myFuncs.insert0Of1000 = (num)=>{
+    if(num<10){
+        return "00"+num;
+    }
+    else if(num<100){
+        return "0"+num;
+    }
+    else{
+        return String(num);
+    }
+}
 
 //时间戳转化为时间
 myFuncs.toTime = (timeStamp)=>{
