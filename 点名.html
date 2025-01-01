@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>点名</title>
+    <style>
+    @font-face {
+    font-family: "myFont";
+    src: url(../字体/字魂水云行楷.ttf);
+    }
+    #new{
+        text-align: center;
+        margin:15px;
+        margin-left: 50px;
+        margin-right: 70px;
+        width: 120px;
+        height: 60px;
+        font-size: 26px;
+        color: rgb(245, 245, 242);
+        border-radius: 30px;
+        border-color:transparent;
+        background:linear-gradient(90deg,rgb(128, 137, 241),rgb(175, 80, 157));
+        background-size: 110%;
+        background-position: -5px;
+    }
+    </style>
+</head>
+<body>
+    <div style="text-align: center;margin-top: 200px;"><label id="lbl" style="font-size: 50px;font-family: 'myFont';">……</label></div><br>
+    <div style="text-align: center;"><button id="new">抽</button></div>
+    <script>
+        let newBtn = document.getElementById("new");
+        let lbl = document.getElementById("lbl");    
+        let nameList=["冯源","郝为光","李铭浩","李天凯","李湛","骆恺晨","宋易圃","孙浩正","孙云松","王宏宇","王嘉乐","王竣岩","吴林钺","吴祉进","武画麟","夏肃懿","谢佳润","许霁铭","许靖棽","于贤麟","张丞锐","张大卫","曹若昀","仇沫涵","范佳仪","郭曼如","纪云舒","蒋晓楠","金宇琨","李涵颀","李筠心","李雨芳","连越","刘斯语","沈昱萱","王芊芊","熊思琪","杨紫玥","周沐瑶","刘博闻"];
+
+        newBtn.addEventListener("click",function(){
+            let count=0;
+            let chooseName = setInterval(()=>{
+                if(count<20){
+                    lbl.innerText=nameList[Math.floor(Math.random() * 40)];
+                    count++;
+                }
+                else{
+                    clearInterval(chooseName);
+                    console.log("I'm Location");
+                }
+                },70);
+            
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:image" content="img/图标_1.13_2.png">
+    <link rel="stylesheet" type="text/css" href="css/countdown.css">
+    <link rel="icon" type="image/x-icon" href="img/图标_1.13_2.ico">
+    <title>高考倒计时</title>
+</head>
+<body>
+    <table id="mainTable">
+        <thead>
+            <tr>
+                <th class="mainTh">标题</th>
+                <th class="mainTh">状态</th>
+                <th class="mainTh">时间</th>
+            </tr>
+        </thead>
+        <tbody id="mainTbody">
+        </tbody>
+    </table>
+    <div id="buttons">
+        <button id="new">
+            +新建
+        </button>
+        <button id="settings">
+            ⚙️设置
+        </button>
+    </div>
+    <div id="timeChooser" class="backgrounds">
+        <label id="chooserLabel">
+            <!-- 请输入时间（滚动鼠标可快速调节）<br> -->
+            标题<input id="title" value="未命名"><br>
+            <input id="year">年<input id="month">月<input id="day">日<input id="hour">时<input id="minute">分<input id="second">秒<br>
+            <button id="commit" class="ok_CancelBtns">✔️</button>
+            <button id="closeChooser" class="ok_CancelBtns">❌</button>
+            <div id="cycleBtnDiv">重复<button id="cycleBtn"><div id="cycleicon"></div></button></div>
+            <div id="cycleDiv">每<input id="cycleInput">天</div>
+        </label>
+        <div id="newWarningBG" class="backgrounds">
+            <div style="background-color: rgb(247, 204, 168);width: 500px;display: block;margin: 200px auto;padding: 50px auto 30px auto;">
+                <span id="newWarning"><b> 请输入合法的时间!</b></span>
+                <button id="newWarningOk" class="ok_CancelBtns">✔️</button>
+            </div>
+        </div>
+    </div>
+    <div id="settingsDiv" class="backgrounds">
+        <div style="display:block;margin-top:7vw"></div>
+        <button id="editBtn" class="settingBtn"><span class="settingBtnSpan">✍🏻编辑</span><span>&gt;</span></button>
+            <div id="editBG" class="backgrounds">
+                <span id="editWarning">您还没有任何计时！</span>
+                <table id="editTable"></table>
+                <button id="editDown" class="ok_CancelBtns">✔️</button>
+            </div>
+        <button id="clearBtn" class="settingBtn"><span class="settingBtnSpan">🗑️清空数据</span><span>&gt;</span></button>
+            <div id="clearBG" class="backgrounds">
+                <div id="clearDiv"><br>
+                    <span style="font-size:30px;">🗑️清空数据</span><br><br>
+                    清除后将释放<span id="dataSize" style="color: rgb(255, 98, 0);"></span>kB缓存<br>
+                    <span style="color: crimson;margin: 10px auto 0 auto;display: block;"><b>点击确认后数据将被清除！</b></span>
+                    <button id="confirmClear" class="ok_CancelBtns">✔️</button>
+                    <button id="cancelClear" class="ok_CancelBtns">❌</button>
+                </div>   
+            </div>
+        <button id="orderBtn" class="settingBtn"><span class="settingBtnSpan"><img src="img/order.png" style="width: 28px;margin: 0;float: left;"><span style="float: left;margin-top: 4px;">排列顺序</span></span><span id="orderSpan" style="font-size: 15px;color: rgba(0,0,0,0.8);">默认</span></button>
+        <button id="helpBtn" class="settingBtn"><span class="settingBtnSpan">❔ 帮助</span><span>&gt;</span></button>
+            <div id="helpBG" class="backgrounds">
+                <div id="helpDiv"><br>
+                    <span id="helpTitle">   感谢您使用本倒计时!</span>
+                    <p id="helpP">
+                        <b style="font-size: 23px;">----------注意事项----------</b><br>
+                        1.在Chromium内核的浏览器上获得完整的使用体验（Safari、Firefox等部分功能无法使用）.<br>
+                        2.本网站将在本地保存您输入的倒计时，下次在同一浏览器打开数据不会清空（大概）.<br>
+                        3.本站时间以您的本地时间为准，因此请确保您的设备的时间正确.<br><br>
+                        
+                        <b style="font-size: 23px;">----------使用技巧----------</b><br>
+                        1.打开的窗口，点击周围黑色部分可以退出（部分浏览器无此功能）.<br>
+                        2.新建计时时，在数字上滚动鼠标可以快速选择时间（部分浏览器无此功能）.<br>
+                        3.新建计时时，点击✔️提交计时，不会自动关闭窗口；点击❌关闭窗口.<br>
+                        4.编辑计时时，点击✔️将保存更改；点击周围将不保存.<br>
+                        5.清空数据窗口，点击✔️清空；❌退出，不清空。数据清空后无法恢复，刷新后将重置.<br>
+                        6.排序时，默认则与编辑页相同；升序为时间从过去向未来；降序为时间从未来向过去.<br>
+                    </p>
+                    <button id="helpDownBtn" class="ok_CancelBtns">✔️</button>
+                </div>
+            </div>
+        <!-- <button id="helpBtn" class="settingBtn">ℹ️更多信息</button> -->
+    </div>
+    <script src="js/myFuncs.js"></script>
+    <script src="js/countdown.js"></script>
+</body>
+</html>
