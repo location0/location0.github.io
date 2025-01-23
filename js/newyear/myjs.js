@@ -80,13 +80,13 @@ function countDown(time)
 }
 //分割字符
 let cdArr = countDown(theTargetTime);//倒计时结果数组
-let splitedTime = ("距离2024年元旦"+cdArr[0]+cdArr[1]+"天"+cdArr[2]+"时"+cdArr[3]+"分"+cdArr[4]+"秒").split("");
+let splitedTime = ("距离2025年春节"+cdArr[0]+cdArr[1]+"天"+cdArr[2]+"时"+cdArr[3]+"分"+cdArr[4]+"秒").split("");
 let splitedText = theText.split("");
 
 //刷新时间
 function refreshTime(){
     cdArr = countDown(theTargetTime);//刷新倒计时结果
-    pOfTime.innerHTML = "距离2024年元旦"+cdArr[0]+
+    pOfTime.innerHTML = "距离2025年春节"+cdArr[0]+
                         "<span style=\"color:orange\">"+cdArr[1]+"</span>天"+
                         "<span style=\"color:orange\">"+cdArr[2]+"</span>时"+
                         "<span style=\"color:orange\">"+cdArr[3]+"</span>分"+
